@@ -1,12 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
+import Button from 'react-bootstrap/Button';
 
-import NxWelcome from './nx-welcome';
+
 export function App() {
   return (
     <div>
-      <NxWelcome title="eos-ui" />
       <button className={styles.button}>Hello</button>
+      <Button variant="primary">Bootstrap</Button>
     </div>
   );
 }
