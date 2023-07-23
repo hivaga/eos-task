@@ -5,26 +5,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {styled} from "@mui/material";
 import {Fragment, useContext} from "react";
 import {AppStoreContext} from "../app";
+import {Case, Debtor, UniqueID, Unit} from "../../types/DataTypes";
 
 /* eslint-disable-next-line */
 export interface LeftMenuProps {
 }
 
-export type UniqueID = string;
-
-export type Debtor = {
-  workUnitId: string,
-  name: string
-}
-
-export type Case =  {"workUnitId": UniqueID,
-  "package": string,
-  "status": number
-}
-
-export type Unit = {
-  debtors?: Debtor[], others?: any[], cases?: Case[], workUnitId: UniqueID, bailiffName: string
-};
 
 const TreeItem = styled(MuiTreeItem)`
   & > .MuiTreeItem-content.Mui-selected,
@@ -55,12 +41,12 @@ function hasDebtors(unit: Unit): boolean {
   return false;
 }
 
-function extractDebtors(debtors: Debtor[], itemId: UniqueID) {
+function extractDebtors(debtors: Debtor[], itemId: UniqueID, selectHandler: (...rest:any[]) => any) {
   return (
     <TreeItem nodeId={`${itemId}#debtors`} label={`Длъжници (${debtors.length})`}>
       {debtors.map((item, index) => (
         <Fragment key={item.workUnitId}>
-          <TreeItem nodeId={item.workUnitId} label={item.name}>
+          <TreeItem nodeId={item.workUnitId} label={item.name} onClick={() => selectHandler(item)}>
           </TreeItem>
         </Fragment>
       ))}
@@ -93,16 +79,30 @@ export function LeftMenu(props: LeftMenuProps) {
 
   const appStore = useContext(AppStoreContext);
 
+  // appStore.setSelectedPerson('123');
+
+  const onPersonSelectHandler = (person:Debtor) => {
+    console.log('Selected person:', person);
+    appStore.setSelectedPerson(person.workUnitId);
+  }
+
+  const updateSelectedNode = (data:any) => {
+    console.log('Selected node:', data);
+    appStore.setSelectedPerson(null);
+  }
+
   return (
     <div className={styles.container}>
       <TreeView aria-label="file system navigator"
+                onNodeSelect={updateSelectedNode}
                 defaultCollapseIcon={<ExpandMoreIcon/>}
-                defaultExpandIcon={<ChevronRightIcon/>}>
+                defaultExpandIcon={<ChevronRightIcon/>}
+      >
         {appStore.workUnits.map((item, index) => (
           <Fragment key={index}>
             <TreeItem nodeId={item.workUnitId} label={item.bailiffName}>
               <Fragment key={item.workUnitId}>
-                {hasDebtors(item) && extractDebtors(item.debtors, item.workUnitId)}
+                {hasDebtors(item) && extractDebtors(item.debtors, item.workUnitId, onPersonSelectHandler)}
                 {hasCases(item) && extractCases(item.cases, item.workUnitId)}
               </Fragment>
             </TreeItem>
