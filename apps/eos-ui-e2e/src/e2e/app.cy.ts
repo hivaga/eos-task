@@ -7,7 +7,7 @@ describe('eos-ui', () => {
     // Custom command example, see `../support/commands.ts` file
     cy.login('my-email@something.com', 'myPassword');
 
-    // Function helper example, see `../support/app.po.ts` file
+    // Function helper example, see `../support/components.po.ts` file
     getGreeting().contains('Welcome eos-ui');
   });
 });
