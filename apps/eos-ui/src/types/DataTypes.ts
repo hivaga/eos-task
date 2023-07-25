@@ -1,13 +1,14 @@
 export type UniqueID = string;
 
 export type Debtor = {
-  workUnitId: string,
+  workUnitId: UniqueID,
   name: string
 }
 
-export type Case =  {"workUnitId": UniqueID,
-  "package": string,
-  "status": number
+export type Case =  {
+  workUnitId: UniqueID,
+  package: string,
+  status: number
 }
 
 export type Unit = {

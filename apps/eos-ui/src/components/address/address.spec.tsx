@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import PersonDetails from './person-details';
+import Address from './address';
 
-describe('PersonDetails', () => {
+describe('Address', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<PersonDetails />);
+    const { baseElement } = render(<Address />);
     expect(baseElement).toBeTruthy();
   });
 });

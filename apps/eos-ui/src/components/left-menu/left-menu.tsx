@@ -41,7 +41,7 @@ function hasDebtors(unit: Unit): boolean {
   return false;
 }
 
-function extractDebtors(debtors: Debtor[], itemId: UniqueID, selectHandler: (...rest:any[]) => any) {
+function extractDebtors(debtors: Debtor[], itemId: UniqueID, selectHandler: (...rest: any[]) => any) {
   return (
     <TreeItem nodeId={`${itemId}#debtors`} label={`Длъжници (${debtors.length})`}>
       {debtors.map((item, index) => (
@@ -81,14 +81,20 @@ export function LeftMenu(props: LeftMenuProps) {
 
   // appStore.setSelectedPerson('123');
 
-  const onPersonSelectHandler = (person:Debtor) => {
-    console.log('Selected person:', person);
-    appStore.setSelectedPerson(person.workUnitId);
+  const onDebtorSelectHandler = (person: Debtor) => {
+    console.log('Selected debtor:', person);
+    appStore.setSelectedDebtorID(person.workUnitId);
   }
 
-  const updateSelectedNode = (data:any) => {
+  const onCreditorSelectHandler = (id: UniqueID | undefined) => {
+    console.log('Selected creditor:', id);
+    appStore.setSelectedCreditorID(id);
+  }
+
+  const updateSelectedNode = (data: any) => {
     console.log('Selected node:', data);
-    appStore.setSelectedPerson(null);
+    appStore.setSelectedDebtorID(null);
+    appStore.setSelectedCreditorID(null);
   }
 
   return (
@@ -100,9 +106,9 @@ export function LeftMenu(props: LeftMenuProps) {
       >
         {appStore.workUnits.map((item, index) => (
           <Fragment key={index}>
-            <TreeItem nodeId={item.workUnitId} label={item.bailiffName}>
+            <TreeItem nodeId={item.workUnitId} label={item.bailiffName} onClick={() => onCreditorSelectHandler(item.workUnitId)}>
               <Fragment key={item.workUnitId}>
-                {hasDebtors(item) && extractDebtors(item.debtors, item.workUnitId, onPersonSelectHandler)}
+                {hasDebtors(item) && extractDebtors(item.debtors, item.workUnitId, onDebtorSelectHandler)}
                 {hasCases(item) && extractCases(item.cases, item.workUnitId)}
               </Fragment>
             </TreeItem>
