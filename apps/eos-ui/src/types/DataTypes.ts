@@ -6,9 +6,30 @@ export type Debtor = {
 }
 
 export type Case =  {
-  workUnitId: UniqueID,
-  package: string,
-  status: number
+  "workUnitId": UniqueID,
+  "debtor": string,
+  "date": string,
+  "package": string,
+  "boughtAmount": {
+    "amount": number,
+    "currency": string
+  },
+  "paidAmount": {
+    "amount": number,
+    "currency": string
+  },
+  "dueAmount": {
+    "amount": number,
+    "currency": string
+  }
+}
+
+export type Address = {
+  "id": UniqueID,
+  "settlementName": string,
+  "zipCode": string,
+  "address": string,
+  "dateAdded": string;
 }
 
 export type Unit = {

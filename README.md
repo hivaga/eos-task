@@ -1,5 +1,16 @@
 # EOS TASK
 
+## How to start
+
+### Run Application Locally
+
+ `npm run start`
+
+### Run Unit Tests
+
+  `npm run test`
+
+
 ## Requirements
 
 Front End Developer

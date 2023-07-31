@@ -1,0 +1,23 @@
+
+.hcontainer {
+  display: flex;
+  gap: 10px;
+}
+
+.vcontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.inputField{
+  width: 100%;
+}
+
+.formControl{
+  width: 100%;
+}

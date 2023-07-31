@@ -7,7 +7,7 @@ import {Fragment, useContext} from "react";
 import {AppStoreContext} from "../app";
 import {Case, Debtor, UniqueID, Unit} from "../../types/DataTypes";
 
-/* eslint-disable-next-line */
+
 export interface LeftMenuProps {
 }
 
@@ -41,9 +41,9 @@ function hasDebtors(unit: Unit): boolean {
   return false;
 }
 
-function extractDebtors(debtors: Debtor[], itemId: UniqueID, selectHandler: (...rest: any[]) => any) {
+function extractDebtors(debtors: Debtor[], itemId: UniqueID, selectHandler: (...rest: any[]) => any, selectItem: (...rest: any[]) => any) {
   return (
-    <TreeItem nodeId={`${itemId}#debtors`} label={`Длъжници (${debtors.length})`}>
+    <TreeItem nodeId={`${itemId}#debtors`} label={`Длъжници (${debtors.length})`} onClick={selectItem}>
       {debtors.map((item, index) => (
         <Fragment key={item.workUnitId}>
           <TreeItem nodeId={item.workUnitId} label={item.name} onClick={() => selectHandler(item)}>
@@ -104,12 +104,12 @@ export function LeftMenu(props: LeftMenuProps) {
                 defaultCollapseIcon={<ExpandMoreIcon/>}
                 defaultExpandIcon={<ChevronRightIcon/>}
       >
-        {appStore.workUnits.map((item, index) => (
+        {appStore && appStore.workUnits && appStore.workUnits.map((item, index) => (
           <Fragment key={index}>
             <TreeItem nodeId={item.workUnitId} label={item.bailiffName} onClick={() => onCreditorSelectHandler(item.workUnitId)}>
               <Fragment key={item.workUnitId}>
-                {hasDebtors(item) && extractDebtors(item.debtors, item.workUnitId, onDebtorSelectHandler)}
-                {hasCases(item) && extractCases(item.cases, item.workUnitId)}
+                {hasDebtors(item) && extractDebtors(item.debtors, item.workUnitId, onDebtorSelectHandler, () => onCreditorSelectHandler(item.workUnitId))}
+{/*                {hasCases(item) && extractCases(item.cases, item.workUnitId)}*/}
               </Fragment>
             </TreeItem>
           </Fragment>

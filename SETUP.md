@@ -16,3 +16,7 @@
 ### Install Material TreeView
 
 `npm install @mui/lab`
+
+#### Adding React Forms Hook
+
+`npm install react-hook-form`

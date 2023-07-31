@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  gap: 20px;
+  flex-flow: column;
+}
+
+
+.details_row {
+  padding: 20px;
+  border-bottom: 1px solid #e0eef0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

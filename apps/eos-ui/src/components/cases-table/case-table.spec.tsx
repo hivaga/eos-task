@@ -1,10 +1,13 @@
-import { render } from '@testing-library/react';
+import {render} from '@testing-library/react';
 
-import Case from './cases-table';
+import {CasesTable} from './cases-table';
+import {Case} from "../../types/DataTypes";
+
+const CASES: Case[] = []
 
 describe('Case', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Case />);
+    const {baseElement} = render(<CasesTable cases={CASES}/>);
     expect(baseElement).toBeTruthy();
   });
 });

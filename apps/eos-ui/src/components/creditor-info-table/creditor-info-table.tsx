@@ -23,15 +23,15 @@ export function CreditorInfoTable(data: { props: CreditorInfoTableProps }) {
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell align="right">Дата</TableCell>
-              <TableCell align="right">Съд</TableCell>
+              <TableCell align="justify">Дата</TableCell>
+              <TableCell align="justify">Съд</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell>{props.workUnitId}</TableCell>
-              <TableCell align="right">{props.date}</TableCell>
-              <TableCell align="right">{props.court}</TableCell>
+              <TableCell>{props.date}</TableCell>
+              <TableCell>{props.court}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
